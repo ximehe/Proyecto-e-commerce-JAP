@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>eMercado - Todo lo que busques está aquí</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav w-100 justify-content-between">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sell.html">Vender</a>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="user" data-bs-toggle="dropdown" aria-expanded="false">
+                
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item active" href="cart.html">Mi Carrito</a></li>
+                <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
+                
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="login.html" onclick="SalirSesion()">Salir</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="container">
+    
+      <br>
+      <h2 class="text-center">Carrito de compras</h2>
+      <hr class="my-3">
+      
+      <h4 class="text-center">Articulos a comprar</h4>
+      <hr class="my-3">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="ListC">
+        </tbody>
+      </table>
+      <hr>
+
+    
+      <h2>Tipo de envío</h2><br>
+      <input type="radio" 
+        class="form-check-input position-static"
+        value="premium"
+        id="premium"
+        name="radio" onclick="CalculoDeEnvio()">
+         Premium 2 a 5 días (15%)
+      </input><br>
+      <input type="radio" 
+        class="form-check-input position-static"
+        value="express"
+        id="express"
+        name="radio" onclick="CalculoDeEnvio()">
+         Express 5 a 8 días (7%)
+        </input><br>
+      <input type="radio" 
+        class="form-check-input position-static"
+        value="standard"
+        id="standard"
+        name="radio" onclick="CalculoDeEnvio()" checked> 
+        Standard 12 a 15 días (5%)
+      </input><br><br>
+      
+      <h2>Dirección de envío</h2>
+      
+      <div class="col-md-8 order-md-1">
+        <form class="row g-3 needs-validation" id="myForm" novalidate>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom01" class="form-label"></label>
+              <input type="text" placeholder="Calle" class="form-control" id="validationCustom01" required>
+              <div class="invalid-feedback">
+                Por favor, introduzca una calle.
+              </div>
+              <div class="valid-feedback">
+                Datos correctos
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom02" class="form-label"></label>
+              <input type="number" placeholder="Número" class="form-control" id="validationCustom02" min="0" required>
+              <div class="invalid-feedback">
+                Por favor, introduzca el número de dirección.
+              </div>
+              <div class="valid-feedback">
+                Datos correctos
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom03" class="form-label"></label>
+            <input type="text" placeholder="Esquina" class="form-control" id="validationCustom03"required>
+            <div class="invalid-feedback">
+              Por favor, introduzca la esquina de la dirección.
+            </div>
+            <div class="valid-feedback">
+              Datos correctos
+            </div>
+          </div>
+        </div>
+        <hr>
+
+      
+
+        <h2>Costos</h2>
+        <ul class="list-group">
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Subtotal</div>
+              <small class="text-muted" style="float:left">Costo unitario del producto por cantidad</small>
+            </div>
+            <span id="subtotalcosto" class="badge bg-primary rounded-pill"></span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Costo de envío</div>
+              <small class="text-muted" style="float:left">Según el tipo de envío</small>
+            </div>
+            <span id="costoenvio" class="badge bg-primary rounded-pill"></span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Total ($)</div>
+            </div>
+            <span id="total" class="badge bg-primary rounded-pill"></span>
+          </li>
+        </ul>
+        <hr>
+        <h2>Formas de pago</h2>
+        <div id="seleccionpago">Seleccione su forma de pago haciendo click en el botón de abajo</div>
+        <p id="noSeleccionado" style="color:red"></p>
+        <p id="Seleccionado" style="color: green"></p>
+
+
+        <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+          <p>Su compra se ha realizado exitosamente</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+       
+
+
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Seleccionar forma de pago
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Forma de pago</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div id="tarjetaDeCredito">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcion1" onclick="MetodoDePago()" required>
+            <label class="form-check-label" for="flexRadioDefault1">
+              Tarjeta De Credito
+            </label>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+              <input type="number" placeholder="Número de tarjeta" class="form-control" id="numtarjeta" disabled required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <input type="number" placeholder="Código de seg." class="form-control" id="codseg" disabled required>
+            </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <input type="date" placeholder="Vencimiento (MM/AA)" class="form-control" id="vencim" disabled required>
+            </div>
+          </div>
+          
+        </div>
+
+        <div id="transferenciaBancaria">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcion2" onclick="MetodoDePago()" required>
+            <label class="form-check-label" for="flexRadioDefault1">
+              Transferencia Bancaria
+            </label>
+          </div>
+          <hr>
+          <div class="col-md-6 mb-3">
+            <input type="number" placeholder="Número de cuenta" class="form-control" id="numeroCuenta" disabled required>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checkModal()">Añadir metodo de pago</button>
+        
+      </div>
+  
+      
+    </div>
+
+  </div>
+</div>
+<br>
+<br>
+<div class="d-grid gap-2">
+  <button type="submit" class="btn btn-outline-dark" onclick="MetodoDePago()">Finalizar compra</button>
+</div>
+
+</form>
+      
+    </div>
+  </main>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-end">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
+        2022</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+
+</html>
